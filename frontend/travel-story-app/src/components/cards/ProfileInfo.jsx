@@ -1,10 +1,11 @@
 import React from 'react'
+import { getinitials } from '../../utils/helper'
 
 const ProfileInfo = ({userinfo , onLogout}) => {
   return (
-    <div className='flex items-center gap-3'>
+    userinfo && ( <div className='flex items-center gap-3'>
         <div className='w-12 h-12 flex items-center justify-center rounded-full text-slate-950 font-medium bg-slate-100'>
-            WJ
+            {getinitials(userinfo ? userinfo.fullName:"") }
 
         </div>
         <div>
@@ -17,6 +18,7 @@ const ProfileInfo = ({userinfo , onLogout}) => {
 
     </div>
   )
+)
 }
 
 export default ProfileInfo

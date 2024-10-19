@@ -178,9 +178,9 @@ app.post('/image-upload' , upload.single('image') , async(req , res)=>{
         if(!req.file){
             return res.status(400).json({error:true , message:'no image uploaded'});
         }
-        const imageUrl = `https://localhost:8080/uploads/${req.file.filename}`;
+        const imageUrl = `http://localhost:8080/uploads/${req.file.filename}`;
 
-        res.status(201).json({imageUrl});
+        res.status(200).json({imageUrl});
     }
     catch(error){
         res.status(500).json({error:true , message:error.message});
@@ -217,12 +217,14 @@ app.delete('/delete-image' ,async(req , res)=>{
 
 } )
 
-app.post('/edit-story/:id' , authenticateToken , async (req , res)=>{
+app.put('/edit-story/:id' , authenticateToken , async (req , res)=>{
     const { id } = req.params;
+   
+
     const { title , story , visitedLocation,imageUrl , visitedDate} = req.body;
     const { userId} = req.user;
 
-    if(!title || !story || !visitedLocation || !imageUrl || !visitedDate)
+    if(!title || !story || !visitedLocation || !visitedDate)
     {
         return res.status(400).json({ error:true , message:'all fields are necessdary'});
     }
@@ -382,6 +384,6 @@ app.use('/uploads' , express.static(path.join(__dirname , 'assets')));
 
 app.listen(8080 , ()=>{
     
-    console.log("server started motherfucker");
+    console.log("server started ");
 });
 module.exports = app;
