@@ -178,7 +178,7 @@ app.post('/image-upload' , upload.single('image') , async(req , res)=>{
         if(!req.file){
             return res.status(400).json({error:true , message:'no image uploaded'});
         }
-        const imageUrl = `http://localhost:8080/uploads/${req.file.filename}`;
+        const imageUrl = `https://nomad-notes.onrender.com/uploads/${req.file.filename}`;
 
         res.status(200).json({imageUrl});
     }
@@ -239,7 +239,7 @@ app.put('/edit-story/:id' , authenticateToken , async (req , res)=>{
 
         }
 
-        const placeholderUrl = `https://localhost:8080/assets/placeholder.png`;
+        const placeholderUrl = `https://nomad-notes.onrender.com/assets/placeholder.png`;
         travelStory.title = title;
         travelStory.story = story;
         travelStory.visitedLocation = visitedLocation;
@@ -381,9 +381,14 @@ app.get('/travel-stories/filter' , authenticateToken , async(req , res)=>{
 
 app.use('/uploads' , express.static(path.join(__dirname , 'uploads')));
 app.use('/uploads' , express.static(path.join(__dirname , 'assets')));
+const PORT = 8080;
 
-app.listen(8080 , ()=>{
+app.listen((PORT), ()=>{
     
     console.log("server started ");
 });
+app.get('/', (req, res) => {
+    res.send('Backend is working!');
+});
+
 module.exports = app;
